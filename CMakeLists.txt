@@ -7,7 +7,10 @@ project(game_one)
 set(SFML_PATH C:\\Users\\Mark\\Desktop\\cpp-apps\\lib\\SFML-2.6.1)
 
 # Set Headers
-set (HEADERS 
+set (HEADERS
+    src/component/CCollision.h
+    src/component/CScore.h
+    src/component/CTransform.h
 )
 
 # Set Sources
