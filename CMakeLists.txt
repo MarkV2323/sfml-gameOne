@@ -9,6 +9,8 @@ set(SFML_PATH C:\\Users\\Mark\\Desktop\\cpp-apps\\lib\\SFML-2.6.1)
 # Set Headers
 set (HEADERS
     src/component/CCollision.h
+    src/component/CInput.h
+    src/component/CLifespan.h
     src/component/CScore.h
     src/component/CTransform.h
 )
