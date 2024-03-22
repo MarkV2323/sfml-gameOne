@@ -5,6 +5,7 @@ namespace game {
         public:
             float radius {0.0};
             CCollision() : radius(0.0) {}
+            CCollision(float r) : radius(r) {}
             ~CCollision() {}
     };
 }
