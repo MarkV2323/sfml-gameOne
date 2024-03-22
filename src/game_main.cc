@@ -1,12 +1,20 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+#include "entities/Entity.h"
+
+using namespace std;
+using namespace game;
+
 int main(int argc, char const *argv[])
 {
     sf::RenderWindow window(sf::VideoMode(600, 600), "game");
     window.setFramerateLimit(60);
 
-    std::cout << "hello world\n";
+    auto e = Entity();
+    cout << e.printEntityInfo() << "\n";
+    e.cScore = std::make_shared<CScore>(5);
+    cout << e.printEntityInfo() << "\n";
     
     while (window.isOpen()) {
         sf::Event event;

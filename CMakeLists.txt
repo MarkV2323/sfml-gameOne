@@ -13,6 +13,7 @@ set (HEADERS
     src/component/CLifespan.h
     src/component/CScore.h
     src/component/CTransform.h
+    src/entities/Entity.h
 )
 
 # Set Sources
