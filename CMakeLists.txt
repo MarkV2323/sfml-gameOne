@@ -14,6 +14,7 @@ set (HEADERS
     src/component/CScore.h
     src/component/CTransform.h
     src/entities/Entity.h
+    src/entities/EntityManager.h
 )
 
 # Set Sources
