@@ -69,5 +69,13 @@ namespace game {
             const std::vector<std::shared_ptr<Entity>>& getEntities(std::string& s) {
                 return entityMap[s];
             }
+
+            std::string getEntitiesStats() {
+                std::string r_string = "";
+                r_string += "Entity Manager Report:\n";
+                r_string += "Entities total : " + std::to_string(entities.size()) + "\n";
+                r_string += "Entities to add: " + std::to_string(toAddEntities.size());
+                return r_string;
+            }
     };
 }
