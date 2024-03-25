@@ -14,23 +14,71 @@ namespace game {
         bool paused {false};
         bool running {false};
 
-        void init() {}
+        void init() {
+            window.create(sf::VideoMode(600, 600), "game");
+            window.setFramerateLimit(60);
+            paused = false;
+            running = true;
+            player = eMan.addEntity().get();
+        }
 
-        void sMovement() {}
+        void sMovement() {
 
-        void sUserInput() {}
+        }
 
-        void sRender() {}
+        // Handle user input
+        void sUserInput() {
+            if (window.isOpen()) {
+                sf::Event event;
+                if (!window.pollEvent(event))
+                    return;
+                if (event.type == sf::Event::Closed)
+                    running = false;
+                    window.close();
+                if (event.type == sf::Event::KeyPressed && event.key.scancode == sf::Keyboard::Scan::Escape)
+                    running = false;
+                    window.close();
+            }
+        }
 
-        void sEnemySpawner() {}
+        // Handle rendering
+        void sRender() {
+            if (window.isOpen()) {
+                window.clear();
+                window.display();
+            }
+        }
 
-        void sCollision() {}
-        
+        void sEnemySpawner() {
+
+        }
+
+        void sCollision() {
+
+        }
+
     public:
-        Game() {};
+        Game() {
+            init();
+        };
         ~Game() {};
 
-        void update() {}
+        void update() {
+            // One "frame" of our game.
+            sEnemySpawner();
+            sUserInput();
+            sMovement();
+            sCollision();
+            sRender();
+        }
+
+        bool isRunning() {
+            return running;
+        }
+
+        bool isPaused() {
+            return paused;
+        }
     };
     
 }
