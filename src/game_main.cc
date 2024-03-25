@@ -1,7 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "entities/Entity.h"
+#include "entities/EntityManager.h"
 
 using namespace std;
 using namespace game;
@@ -10,11 +10,14 @@ int main(int argc, char const *argv[])
 {
     sf::RenderWindow window(sf::VideoMode(600, 600), "game");
     window.setFramerateLimit(60);
-
-    auto e = Entity();
-    cout << e.printEntityInfo() << "\n";
-    e.cScore = std::make_shared<CScore>(5);
-    cout << e.printEntityInfo() << "\n";
+    
+    EntityManager em {};
+    auto e = em.addEntity();
+    em.update();
+    cout << "Size: " << em.getEntities().size() << "\n";
+    e.get()->destroy();
+    em.update();
+    cout << "Size: " << em.getEntities().size() << "\n";
     
     while (window.isOpen()) {
         sf::Event event;

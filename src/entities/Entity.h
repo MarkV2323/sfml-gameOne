@@ -17,15 +17,16 @@ namespace game {
         bool active {true};
         size_t id {0};
 
+        Entity() {};
     public:
-        // Public components
+        friend class EntityManager;
+        
         std::shared_ptr<CCollision> cCollision;
         std::shared_ptr<CInput> cInput;
         std::shared_ptr<CLifespan> cLifespan;
         std::shared_ptr<CScore> cScore;
         std::shared_ptr<CTransform> cTransform;
 
-        Entity() {};
         ~Entity() {};
 
         void destroy() {
