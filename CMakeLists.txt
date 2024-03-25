@@ -15,6 +15,7 @@ set (HEADERS
     src/component/CTransform.h
     src/entities/Entity.h
     src/entities/EntityManager.h
+    src/Game.h
 )
 
 # Set Sources
