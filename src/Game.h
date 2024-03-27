@@ -15,13 +15,21 @@ namespace game {
         Entity* player {nullptr};
         bool paused {false};
         bool running {false};
+        bool playerSpawned {false};
 
         void init() {
             window.create(sf::VideoMode(600, 600), "game");
             window.setFramerateLimit(60);
             paused = false;
             running = true;
-            player = eMan.addEntity().get();
+            player = eMan.addEntity("player").get();
+            float playerRadius = 20;
+            player->cInput = std::make_shared<CInput>();
+            player->cScore = std::make_shared<CScore>(0);
+            player->cShape = std::make_shared<CShape>(playerRadius, 60, sf::Color::Blue, sf::Color::White, 2.0f);
+            player->cCollision = std::make_shared<CCollision>(playerRadius);
+            player->cTransform = std::make_shared<CTransform>(sf::Vector2f(300.0f, 300.0f), sf::Vector2f(3.0f, 3.0f), sf::Vector2f(2.0f, 2.0f), 2.0f);
+            player->cShape.get()->shape.setPosition(player->cTransform.get()->pos);
         }
 
         void sMovement() {
@@ -53,7 +61,12 @@ namespace game {
         // Handle rendering
         void sRender() {
             if (window.isOpen()) {
-                window.clear();
+                window.clear(sf::Color::Black);
+                for (auto& entity : eMan.getEntities()) {
+                    if (entity.get()->cShape) {
+                        window.draw(entity.get()->cShape.get()->shape);
+                    }
+                }
                 window.display();
             }
         }
@@ -78,6 +91,7 @@ namespace game {
                 sUserInput();
                 return;
             }
+            eMan.update();
             sEnemySpawner();
             sUserInput();
             sMovement();
