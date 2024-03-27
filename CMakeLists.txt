@@ -13,6 +13,7 @@ set (HEADERS
     src/component/CLifespan.h
     src/component/CScore.h
     src/component/CTransform.h
+    src/component/CShape.h
     src/entities/Entity.h
     src/entities/EntityManager.h
     src/Game.h
