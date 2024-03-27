@@ -62,6 +62,11 @@ namespace game {
                 return toAddEntities.back();
             }
 
+            std::shared_ptr<Entity> addEntity(std::string eTag) {
+                toAddEntities.push_back(std::shared_ptr<Entity>(new Entity(eTag)));
+                return toAddEntities.back();
+            }
+
             const std::vector<std::shared_ptr<Entity>>& getEntities() {
                 return entities;
             }

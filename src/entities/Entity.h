@@ -8,6 +8,7 @@
 #include "component/CLifespan.h"
 #include "component/CScore.h"
 #include "component/CTransform.h"
+#include "component/CShape.h"
 
 namespace game {
     class Entity
@@ -17,7 +18,11 @@ namespace game {
         bool active {true};
         size_t id {0};
 
-        Entity() {};
+        Entity() {}
+
+        // Player Entity Constructor
+        Entity(std::string eTag) : tag(eTag) {}
+
     public:
         friend class EntityManager;
         
@@ -26,7 +31,8 @@ namespace game {
         std::shared_ptr<CLifespan> cLifespan;
         std::shared_ptr<CScore> cScore;
         std::shared_ptr<CTransform> cTransform;
-
+        std::shared_ptr<CShape> cShape;
+        
         ~Entity() {};
 
         void destroy() {
