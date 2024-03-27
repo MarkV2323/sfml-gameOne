@@ -26,14 +26,34 @@ namespace game {
             float playerRadius = 20;
             player->cInput = std::make_shared<CInput>();
             player->cScore = std::make_shared<CScore>(0);
-            player->cShape = std::make_shared<CShape>(playerRadius, 60, sf::Color::Blue, sf::Color::White, 2.0f);
+            player->cShape = std::make_shared<CShape>(playerRadius, 6, sf::Color::Blue, sf::Color::White, 2.0f);
             player->cCollision = std::make_shared<CCollision>(playerRadius);
-            player->cTransform = std::make_shared<CTransform>(sf::Vector2f(300.0f, 300.0f), sf::Vector2f(3.0f, 3.0f), sf::Vector2f(2.0f, 2.0f), 2.0f);
+            player->cTransform = std::make_shared<CTransform>(sf::Vector2f(300.0f, 300.0f), sf::Vector2f(3.0f, 3.0f), sf::Vector2f(2.0f, 2.0f), 3.0f);
             player->cShape.get()->shape.setPosition(player->cTransform.get()->pos);
         }
 
         void sMovement() {
-
+            if (!running) {
+                return;
+            }
+            // Start by calculating player movement
+            auto pInput = player->cInput.get();
+            auto pShape = player->cShape.get();
+            auto pTrans = player->cTransform.get();
+            if (pInput->up) {
+                pTrans->pos = sf::Vector2f(pTrans->pos.x, pTrans->pos.y - pTrans->speed.y);
+            }
+            if (pInput->left) {
+                pTrans->pos = sf::Vector2f(pTrans->pos.x - pTrans->speed.x, pTrans->pos.y);
+            }
+            if (pInput->down) {
+                pTrans->pos = sf::Vector2f(pTrans->pos.x, pTrans->pos.y + pTrans->speed.y);
+            }
+            if (pInput->right) {
+                pTrans->pos = sf::Vector2f(pTrans->pos.x + pTrans->speed.x, pTrans->pos.y);
+            }
+            pShape->shape.setPosition(pTrans->pos);
+            pShape->shape.rotate(pTrans->angle);
         }
 
         // Handle user input
@@ -54,6 +74,31 @@ namespace game {
                     (paused) ? paused = false : paused = true;
                     std::cout << "\nGame Paused: " << std::boolalpha << paused << "\n";
                     std::cout << eMan.getEntitiesStats() << "\n\n";
+                }
+                if (event.type == sf::Event::KeyPressed && event.key.scancode == sf::Keyboard::Scan::W) {
+                    player->cInput.get()->up = true;
+                }
+                if (event.type == sf::Event::KeyPressed && event.key.scancode == sf::Keyboard::Scan::A) {
+                    player->cInput.get()->left = true;
+                }
+                if (event.type == sf::Event::KeyPressed && event.key.scancode == sf::Keyboard::Scan::S) {
+                    player->cInput.get()->down = true;
+                }
+                if (event.type == sf::Event::KeyPressed && event.key.scancode == sf::Keyboard::Scan::D) {
+                    player->cInput.get()->right = true;
+                }
+
+                if (event.type == sf::Event::KeyReleased && event.key.scancode == sf::Keyboard::Scan::W) {
+                    player->cInput.get()->up = false;
+                }
+                if (event.type == sf::Event::KeyReleased && event.key.scancode == sf::Keyboard::Scan::A) {
+                    player->cInput.get()->left = false;
+                }
+                if (event.type == sf::Event::KeyReleased && event.key.scancode == sf::Keyboard::Scan::S) {
+                    player->cInput.get()->down = false;
+                }
+                if (event.type == sf::Event::KeyReleased && event.key.scancode == sf::Keyboard::Scan::D) {
+                    player->cInput.get()->right = false;
                 }
             }
         }
